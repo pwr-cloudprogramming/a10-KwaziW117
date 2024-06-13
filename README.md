@@ -4,8 +4,6 @@
 - Group: W04IST-SI4527G
 - Date: June 13, 2024
 
-## Environment Architecture
-
 ### AWS Resources Created:
 
 - **AWS Cognito User Pool**
@@ -16,19 +14,21 @@
 
 ### AWS Cognito User Pool Configuration:
 
-![Cognito User Pool](img/441951111_418465434501059_1652275308548874430_n.png)
-![Cognito User Pool](img/448111268_459331390074240_8664402449976369501_n.png)
+![Cognito User Pool](img/user-pool.png)
+
+![First User](img/first-user.png)
 
 ### EC2 Instance:
 
-![EC2 Instance](img/441951533_1140651543661221_4612592224140143129_n.png)
+![EC2](img/ec2.png)
 
 ### Running App:
 
-![SignIn](img/441959986_1115742433057254_5363824149602118806_n.png)  
-![SignUp](img/441963868_443722055044919_5015836248694024064_n.png)  
-![Confirm](img/441951114_1147907833160915_7306293442450373105_n.png)
-![Gameplay](img/447522656_1252041219102620_7497373833100991580_n.png)
+![Login](img/login.png)
+
+![Registration](img/registration.png)
+
+![Gameplay](img/gameplay.png)
 
 ### Configured AWS Services
 
@@ -68,12 +68,38 @@ Through this project, I gained hands-on experience with AWS Cognito and Terrafor
 
 ### What obstacles did you overcome?
 
-One of the main challenges I encountered was ensuring the correct integration of AWS Cognito with the application. Initially, the user authentication was not working correctly due to misconfigured settings in the Cognito user pool and user pool client.
+#### 1. Integration Issues with AWS Cognito:
+
+One of the primary challenges I faced was ensuring the correct integration of AWS Cognito with the application. Initially, the user authentication flow was failing because the Cognito user pool and user pool client settings were misconfigured.
+
+**Solution**:
+I revisited the AWS Cognito settings and ensured that the user pool's `username_attributes` and `auto_verified_attributes` were set correctly to `email`. I also verified that the `explicit_auth_flows` in the user pool client included `ALLOW_USER_PASSWORD_AUTH` and `ALLOW_REFRESH_TOKEN_AUTH`. To confirm the changes, I used the AWS CLI to manually test the authentication process, which helped identify and resolve the misconfigurations.
+
+#### 2. Email Verification Issues:
+
+Another problem encountered was with the email verification process. Users were not receiving verification emails, which was critical for the sign-up flow.
+
+**Solution**:
+I checked the `verification_message_template` configuration in the user pool settings and ensured that it was set to `CONFIRM_WITH_CODE`. Additionally, I verified that SES (Simple Email Service) was properly configured and that there were no restrictions on sending emails from the configured domain. This troubleshooting step resolved the issue, allowing users to receive verification emails as expected.
+
+#### 3. Network Configuration Problems:
+
+Initially, the application hosted on the EC2 instance could not be accessed from the internet due to incorrect network configurations.
+
+**Solution**:
+I ensured that the EC2 instance was associated with a public subnet and had a public IP address. Additionally, I verified the security group settings to allow inbound traffic on the required ports (22 for SSH, 8080, and 8081 for the application). I also checked the route table associated with the subnet to ensure it had a route to the internet via the internet gateway.
+
+#### 4. Updating Configuration Files with Dynamic Values:
+
+The final challenge was updating the configuration files dynamically during the EC2 instance initialization, particularly for the IP address and AWS Cognito details.
+
+**Solution**:
+I used a bash script in the EC2 user data to fetch the instance's public IP address using the EC2 metadata service. This script also updated the `config.json` file with the region, user pool ID, and client ID dynamically by using Terraform's interpolation syntax. This automation ensured that the correct values were always set during instance launch.
 
 ### What helped most in overcoming obstacles?
 
-To overcome the integration issues, I referred to the AWS documentation and debugged the authentication flow step-by-step. Additionally, using the AWS CLI helped me quickly test and verify the configurations, which sped up the troubleshooting process.
+To overcome the integration issues, I relied heavily on the AWS documentation and online forums for specific error messages and configuration tips. Debugging the authentication flow step-by-step using AWS CLI and Cognito debugging tools also proved invaluable. For network issues, VPC flow logs and security group logs provided critical insights into traffic and connection problems.
 
 ### Was there something that surprised you?
 
-I was surprised by the complexity and depth of AWS Cognito's configuration options. While the service provides powerful features for user management and authentication, ensuring that all settings are correctly configured to match the application's requirements can be intricate.
+I was surprised by the complexity and depth of AWS Cognito's configuration options. While the service provides powerful features for user management and authentication, ensuring that all settings are correctly configured to match the application's requirements can be intricate. Additionally, the seamless integration of Terraform with AWS services to automate infrastructure provisioning was impressive, though it required careful attention to detail to avoid configuration errors.
