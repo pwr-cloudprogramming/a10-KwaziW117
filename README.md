@@ -14,9 +14,9 @@
 
 ### AWS Cognito User Pool Configuration:
 
-![Cognito User Pool](img/user-pool.png)
+![Cognito User Pool](img/user-pool.jpg)
 
-![First User](img/first-user.png)
+![First User](img/first_user.png)
 
 ### EC2 Instance:
 
