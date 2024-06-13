@@ -1,73 +1,85 @@
-body {
-  background: #212121;
-  color: #666;
+body,
+html {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to right, #432e3b, #8c6e8b);
+
+  font-family: "Arial", sans-serif;
 }
 
 h1 {
   text-align: center;
   color: #fff;
+  margin-bottom: 20px;
 }
 
-.clearfix {
-  clear: both;
-}
-
-#box {
-  width: 350px;
-  overflow: auto;
-  margin: 40px auto;
-  background: #666;
-  padding-bottom: 40px;
-  border-radius: 10px;
-}
-
-#message {
-  background: #333;
-  color: #fff;
-}
-
-#gameBoard li {
-  float: left;
-  margin: 10px;
-  height: 70px;
-  width: 70px;
-  font-size: 50px;
-  background: #333;
-  color: #ccc;
-  list-style: none;
+h4 {
   text-align: center;
+  color: #ddd;
+  margin-bottom: 30px;
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.301);
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  width: 300px;
+  margin: 0 auto;
+}
+
+.inputText {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #555;
   border-radius: 5px;
-}
-
-#gameBoard li:hover, #reset:hover {
-  cursor: pointer;
-  background: #000;
-}
-
-#reset {
-  border: 0;
-  background: #444;
+  background: #fdfafd;
   color: #fff;
-  width: 70%;
-  padding: 15px;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: none;
   border-radius: 5px;
+  background: #2f242e;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
 }
 
-.o {
-  color: green !important;
+button:hover {
+  background: #653e5a;
 }
 
-.x {
-  color: red !important;
+button:active {
+  background: #b57eaf;
+}
+
+.toggleSignUp {
+  margin-top: 20px;
+  color: #aaa;
+  cursor: pointer;
+}
+
+.toggleSignUp:hover {
+  color: #fff;
+  text-decoration: underline;
 }
 
 footer {
   display: block;
   text-align: center;
   padding-top: 20px;
-}
-
-.loginForm {
-  justify-content: center;
-  display: grid;
+  color: #aaa;
 }

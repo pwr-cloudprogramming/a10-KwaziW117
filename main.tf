@@ -13,7 +13,7 @@ provider "aws" {
 }
 
 resource "aws_cognito_user_pool" "main" {
-  name                     = "example-user-pool"
+  name                     = "Tic-Tac-Toe-user-pool"
   username_attributes      = ["email"]
   auto_verified_attributes = ["email"]
   #   mfa_configuration   = "OPTIONAL"
@@ -194,7 +194,7 @@ resource "aws_instance" "my_instance" {
               apt-get install -y maven
 
               echo "Cloning Git repository"
-              git clone -b main https://github.com/pwr-cloudprogramming/a10-KwaziW117.git
+              git clone -b master https://github.com/pwr-cloudprogramming/a10-KwaziW117.git
 
               echo "Building Maven project"
               cd a10-KwaziW117/backend
@@ -243,7 +243,7 @@ resource "aws_instance" "my_instance" {
               EOF
 
   tags = {
-    Name = "Tic-tac-toe-Webserver3"
+    Name = "Tic-tac-toe-Cognito"
   }
 }
 
